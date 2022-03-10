@@ -1,1 +1,1 @@
-# EP-project
+# XP-project
