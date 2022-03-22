@@ -27,3 +27,7 @@ body {
 .container-header {
     width: 35%;
 }
+
+.input-group {
+    width: 80%;
+}

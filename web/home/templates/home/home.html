@@ -1,4 +1,4 @@
-{% extends 'main.html' %} 
+{% extends 'main.html' %}
 
 {% block content %}
 
@@ -7,26 +7,59 @@
   <div class="container-header">
 
     <h1>Upload Files Below</h1>
-  
+
   </div>
 </div>
 
 <div class="outer">
   <div class="container-body">
 
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-  
-      <div class="input-group">
-        <input type="file" name="file" class="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" required>
-        <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04">upload</button>
-      </div>
-  
-    </form>
-  
+    <div class="input-group">
+      <input type="file" id="file" name="file" class="form-control" aria-describedby="inputGroupFileAddon04"
+        aria-label="Upload" required>
+      <button class="btn btn-outline-secondary" onclick="upload()" id="inputGroupFileAddon04">upload</button>
+    </div>
+
   </div>
 </div>
 
 
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+  function upload() {
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = showResult;
+
+    let url = "http://localhost:8000/upload";
+    xmlHttp.open("POST", url);
+
+    let csrfToken = '{{ csrf_token }}';
+    xmlHttp.setRequestHeader('X-CSRFToken', csrfToken);
+
+    let file = document.getElementById('file').files[0];
+
+    console.log(file)
+
+    var formData = new FormData();
+    formData.append("file", file);
+
+    xmlHttp.send(formData);
+  }
+
+  function showResult() {
+
+    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+
+      data = JSON.parse(xmlHttp.responseText);
+
+      console.log(data);
+
+    }
+  }
+</script>
 
 {% endblock %}
