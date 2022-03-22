@@ -4,7 +4,7 @@ from django.http import HttpRequest, HttpResponse
 
 # Create your views here.
 
-def welcome(request):
+def home(request):
 
     if request.method == 'POST':
         uploaded_file = request.FILES['file']
@@ -12,4 +12,4 @@ def welcome(request):
         print(uploaded_file.name)
         print(uploaded_file.read())
 
-    return render(request, 'welcome/welcome.html')
+    return render(request, 'home/home.html')

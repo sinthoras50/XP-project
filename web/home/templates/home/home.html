@@ -1,0 +1,32 @@
+{% extends 'main.html' %} 
+
+{% block content %}
+
+
+<div class="outer">
+  <div class="container-header">
+
+    <h1>Upload Files Below</h1>
+  
+  </div>
+</div>
+
+<div class="outer">
+  <div class="container-body">
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+  
+      <div class="input-group">
+        <input type="file" name="file" class="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" required>
+        <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04">upload</button>
+      </div>
+  
+    </form>
+  
+  </div>
+</div>
+
+
+
+{% endblock %}
