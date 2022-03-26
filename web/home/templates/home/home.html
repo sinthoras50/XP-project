@@ -15,11 +15,20 @@
   <div class="container-body">
 
     <div class="input-group">
-      <input type="file" id="file" name="file" class="form-control" aria-describedby="inputGroupFileAddon04"
+      <input type="file" id="fileInvoice" name="file" class="form-control" aria-describedby="inputGroupFileAddon04"
         aria-label="Upload" required>
+      <input type="file" id="fileTemplate" name="file" class="form-control" aria-describedby="inputGroupFileAddon04"
+      aria-label="Upload" required>
+
       <button class="btn btn-outline-secondary" onclick="upload()" id="inputGroupFileAddon04">upload</button>
     </div>
 
+  </div>
+</div>
+
+<div class="outer">
+  <div class="container-result-image">
+    <img src="" id="result-image" width="400"></img>
   </div>
 </div>
 
@@ -40,12 +49,16 @@
     let csrfToken = '{{ csrf_token }}';
     xmlHttp.setRequestHeader('X-CSRFToken', csrfToken);
 
-    let file = document.getElementById('file').files[0];
+    let fileInvoice = document.getElementById('fileInvoice').files[0];
+    let fileTemplate = document.getElementById('fileTemplate').files[0];
 
-    console.log(file)
+    console.log(fileInvoice);
+    console.log(fileTemplate);
 
     var formData = new FormData();
-    formData.append("file", file);
+    formData.append("fileInvoice", fileInvoice);
+    formData.append("fileTemplate", fileTemplate);
+
 
     xmlHttp.send(formData);
   }
@@ -54,10 +67,12 @@
 
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
 
-      data = JSON.parse(xmlHttp.responseText);
+      console.log('..data extracted..');
+      data = JSON.parse(xmlHttp.responseText).data;
+      image = JSON.parse(xmlHttp.responseText).img;
+      document.getElementById("result-image").src = `data:image/png;base64, ${image}`;
 
       console.log(data);
-
     }
   }
 </script>
