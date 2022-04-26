@@ -4,8 +4,9 @@ from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from matplotlib.font_manager import json_load
 import numpy as np
-from .ocr.image_alignment import align_document
-from .ocr.ocr_scanner import extract_data
+# from .ocr.image_alignment import align_document
+# from .ocr.ocr_scanner import extract_data
+from .ocr import *
 import base64
 import cv2
 
@@ -27,8 +28,8 @@ def upload(request):
         np_template = np.fromstring(template, np.uint8)
         np_invoice = np.fromstring(invoice, np.uint8)
 
-        aligned, preview = align_document(np_invoice, np_template)
-        result, result_preview, data = extract_data(aligned)
+        aligned, preview = image_alignment.align_document(np_invoice, np_template)
+        result, result_preview, data = ocr_scanner.extract_data(aligned)
 
         retval, frame_buffer = cv2.imencode('.png', result_preview)
         frame_b64 = base64.b64encode(frame_buffer)

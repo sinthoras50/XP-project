@@ -1,6 +1,5 @@
 from collections import namedtuple
 import pytesseract
-import argparse
 import imutils
 import cv2
 
@@ -21,6 +20,21 @@ OCR_LOCATIONS = [
     OCRLocation('item2', (55,642,360,60), ['Item', 'description', 'goes', 'here']),
     OCRLocation('item3', (55,717,360,60), ['Item', 'description', 'goes', 'here']),
     OCRLocation('item4', (55,799,360,60), ['Item', 'description', 'goes', 'here']),
+    OCRLocation('item_price1', (510, 564, 86, 32), []),
+    OCRLocation('item_price2', (510, 643, 86, 32), []),
+    OCRLocation('item_price3', (510, 722, 86, 32), []),
+    OCRLocation('item_price4', (510, 800, 86, 32), []),
+    OCRLocation('item_qty1', (662, 564, 111, 32), []),
+    OCRLocation('item_qty1', (662, 643, 111, 32), []),
+    OCRLocation('item_qty1', (662, 722, 111, 32), []),
+    OCRLocation('item_qty1', (662, 800, 111, 32), []),
+    OCRLocation('item_amount1', (836, 564, 82, 32), []),
+    OCRLocation('item_amount2', (836, 643, 82, 32), []),
+    OCRLocation('item_amount3', (836, 722, 82, 32), []),
+    OCRLocation('item_amount4', (836, 800, 82, 32), []),
+    OCRLocation('subtotal', (821, 949, 93, 30), []),
+    OCRLocation('tax', (821, 983, 93, 30), []),
+    OCRLocation('total', (821, 1022, 93, 30), [])
 ]
 
 def cleanup_text(text):
@@ -110,8 +124,7 @@ def extract_data(image, ocr_locations=OCR_LOCATIONS):
         for (i, line) in enumerate(text.split('\n')):
             # draw the line on the output image
             startY = y + (i * 70) + 40
-            cv2.putText(image, line, (x, startY),
-                cv2.FONT_HERSHEY_SIMPLEX, 1.8, (0, 0, 255), 5)
+            cv2.putText(image, line, (x, startY), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 5)
 
 
     preview = imutils.resize(image, 400)
