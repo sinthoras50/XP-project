@@ -14,14 +14,11 @@ import cv2
 def home(request):
     return render(request, 'home/home.html')
 
-def editor(request):
-    return render(request, 'editor/editor.html')
 
 @csrf_exempt
 def upload(request):
 
     if request.method == 'POST':
-
 
         # print(request.FILES['fileInvoice'].file.getvalue().decode("utf-8"))
         # print(request.FILES['fileTemplate'].file.getvalue().decode("utf-8"))

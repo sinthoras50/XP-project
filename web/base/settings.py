@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'home.apps.HomeConfig',
-    # 'editor.apps.EditorConfig',
+    'editor.apps.EditorConfig',
     'home.ocr'
 ]
 

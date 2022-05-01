@@ -3,5 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path('editor/', views.editor, name='editor')
+    
+    path('', views.editor, name="upload"),
+
 ]
