@@ -2,6 +2,7 @@ from collections import namedtuple
 import pytesseract
 import imutils
 import cv2
+import json
 
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract'
 
@@ -9,7 +10,7 @@ OCRLocation = namedtuple('OCRLocation', ['id', 'bbox',
 	'filter_keywords'])
 
 # define the locations of each area of the document we wish to OCR
-# TODO let user select field locations
+# default values 
 OCR_LOCATIONS = [
 	OCRLocation('client_name', (52,299,233,30), []),
 	OCRLocation('address', (52,337,233,30), []),
@@ -37,18 +38,40 @@ OCR_LOCATIONS = [
     OCRLocation('total', (821, 1022, 93, 30), [])
 ]
 
+def create_ocr_list(dict):
+    ocr_locations = []
+
+    for key, value in dict.items():
+        loc = value['scaled']
+        filtered_words = value['filteredWords']
+        ocr_locations.append(OCRLocation(key, loc, filtered_words))
+
+    return ocr_locations
+
+
 def cleanup_text(text):
 	# strip out non-ASCII text so we can draw the text on the image
 	# using OpenCV
 	return ''.join([c if ord(c) < 128 else '' for c in text]).strip()
 
-def extract_data(image, ocr_locations=OCR_LOCATIONS):
+def extract_data(image, ocr_locations=None):
+    if ocr_locations:
+        ocr_locations = create_ocr_list(ocr_locations)
+    else:
+        f = open('boundingBoxes.json', 'r')
+        data = json.load(f)
+        f.close()
+
+        ocr_locations = create_ocr_list(data)
+
     parsingResults = []
+
+    print(ocr_locations)
 
     # loop over the locations of the document we are going to OCR
     for loc in ocr_locations:
         # extract the OCR ROI from the aligned image
-        (x, y, w, h) = loc.bbox
+        (x, y, w, h) = loc.bbox  # list(map(lambda x: int(x), loc.bbox))
         roi = image[y:y + h, x:x + w]
 
         # OCR the ROI using Tesseract
@@ -107,9 +130,9 @@ def extract_data(image, ocr_locations=OCR_LOCATIONS):
         (text, loc) = result
 
         # display the OCR result to our terminal
-        print(loc['id'])
-        print('=' * len(loc['id']))
-        print('{}\n\n'.format(text))
+        # print(loc['id'])
+        # print('=' * len(loc['id']))
+        # print('{}\n\n'.format(text))
 
         # extract the bounding box coordinates of the OCR location and
         # then strip out non-ASCII text so we can draw the text on the
@@ -124,7 +147,7 @@ def extract_data(image, ocr_locations=OCR_LOCATIONS):
         for (i, line) in enumerate(text.split('\n')):
             # draw the line on the output image
             startY = y + (i * 70) + 40
-            cv2.putText(image, line, (x, startY), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 5)
+            # cv2.putText(image, line, (x, startY), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 5)
 
 
     preview = imutils.resize(image, 400)

@@ -15,7 +15,7 @@ var imgWidthNew = 0;
 var imgHeightNew = 0;
 
 // TODO: make the image scale dynamically 
-var scalingFactor = 0.5;
+var scalingFactor = 0.6;
 
 var rectLineColor = "red";
 var rectLineWidth = 2; 
@@ -41,6 +41,9 @@ document.querySelector("#image_input").addEventListener("change", function () {
     document.getElementById("add").hidden = false;
     document.getElementById("keyName").hidden = false;
     document.getElementById("download").hidden = false;
+    document.getElementById("keyNameLabel").hidden = false;
+    document.getElementById("filteredWords").hidden = false;
+    document.getElementById("filteredWordsLabel").hidden = false;
 
     canvas = document.getElementById("canvas");
 
@@ -127,12 +130,7 @@ function mouseMove(e) {
 
 function reDraw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
   ctx.drawImage(img, 0, 0, imgWidthNew, imgHeightNew);
-
-  // rectangles.forEach((rectangle) => {
-  //   ctx.strokeRect(rectangle[0], rectangle[1], rectangle[2], rectangle[3]);
-  // });
 
   for (const [key, obj] of Object.entries(boundingBoxes)) {
     const [x, y, w, h] = obj["absolute"];
@@ -145,7 +143,12 @@ function reDraw() {
 
 function add() {
   const key = document.getElementById("keyName").value;
+  const filteredWords = document.getElementById("filteredWords").value.split(/\s+/);
+
+  if (filteredWords.length == 1 && filteredWords[0] == "") filteredWords.pop();
+
   document.getElementById("keyName").value = "";
+  document.getElementById("filteredWords").value = "";
 
   if (key == "") {
     alert("Key name cannot be empty!");
@@ -156,14 +159,18 @@ function add() {
     return;
   }
 
+
   // draw text
 
   ctx.fillText(key, rectX + currRectWidth/2, rectY + currRectHeight/2);
 
   bbNames.push(key);
+
+  const scaled = [rectX * (1/scalingFactor), rectY * (1/scalingFactor), currRectWidth * (1/scalingFactor), currRectHeight * (1/scalingFactor)].map(x => Math.round(x));
   boundingBoxes[key] = {
     "absolute":  [rectX, rectY, currRectWidth, currRectHeight],
-    "scaled": [rectX * (1/scalingFactor), rectY * (1/scalingFactor), currRectWidth * (1/scalingFactor), currRectHeight * (1/scalingFactor)]
+    "scaled": scaled,
+    "filteredWords": filteredWords
   };
 
   // boundingBoxes[key] = [rectX * (1/scalingFactor), rectY * (1/scalingFactor), currRectWidth * (1/scalingFactor), currRectHeight * (1/scalingFactor)];
@@ -192,9 +199,9 @@ function download(content, fileName, contentType) {
   a.href = URL.createObjectURL(file);
   a.download = fileName;
   a.click();
- }
+}
  
- function onDownload(){
+function onDownload(){
   download(JSON.stringify(boundingBoxes), "boundingBoxes.json", "text/plain");
- }
+}
 

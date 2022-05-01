@@ -6,29 +6,47 @@
 
 <link rel="stylesheet" type="text/css" media="screen" href="{% static 'styles/style.css' %}">
 
-<div id="upload-wrap">
-  <label class="upload-wrap">
-    <input type="file" id="image_input" accept="image/png">
-    <img src="https://images.squarespace-cdn.com/content/v1/504fafcf84ae1835d7e5c807/1481053836481-1P6LXZV7W56MFQ3XTRYF/upload-arrow_318-26670.jpg?format=750w" jsaction="load:XAeZkd;" jsname="HiaYvf" class="n3VNCb" alt="Squarespace Websites Uploader" data-noaft="1" style="width: 200px; height: 200px; margin: 0px;">
-    <br>
-    <h1>Upload Here</h1>
-  </label>
+<div id="body-wrap">
+  <div id="upload-wrap">
+    <label class="upload-wrap">
+      <input type="file" id="image_input" accept="image/png">
+      <img src="https://images.squarespace-cdn.com/content/v1/504fafcf84ae1835d7e5c807/1481053836481-1P6LXZV7W56MFQ3XTRYF/upload-arrow_318-26670.jpg?format=750w" jsaction="load:XAeZkd;" jsname="HiaYvf" class="n3VNCb" alt="Squarespace Websites Uploader" data-noaft="1" style="width: 200px; height: 200px; margin: 0px;">
+      <br>
+      <h1>Upload Here</h1>
+    </label>
+  </div>
+  
+  <canvas id="canvas" width="200" height="200" style="border:1px solid" hidden></canvas>
+  
+  <div class="input-container">
+  
+    <div class="key-input-container">
+      <label for="keyName" id="keyNameLabel" hidden>Key name: </label>
+      <input name="Key name" type="text" maxlength="256" id="keyName" hidden/>
+    </div>
+    
+    <div class="key-input-container">
+      <label for="filteredWords" id="filteredWordsLabel" hidden>Filtered words: </label>
+      <input name="Filtered words" type="text" maxlength="256" id="filteredWords" hidden/>
+    </div>
+    
+  </div>
+  
+  <div id="button-wrap">
+    <button id="add" onclick="add()" hidden>Add</button>
+    <button id="undo" onclick="undo()" hidden>Undo</button>
+    <button id="download" onclick="onDownload()" hidden>Save</button>
+  </div>
 </div>
 
-<canvas id="canvas" width="200" height="200" style="border:1px solid" hidden></canvas>
-<input name="Key name" type="text" maxlength="256" id="keyName" hidden/>
 
-<div id="button-wrap">
-  <button id="add" onclick="add()" hidden>Add</button>
-  <button id="undo" onclick="undo()" hidden>Undo</button>
-</div>
 
 
 {% endblock %}
 
 {% block scripts %}
 
-<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+<!-- <script type="text/javascript" src="{% static 'js/main.js' %}"></script> -->
 <script type="text/javascript" src="{% static 'js/load_img.js' %}"></script>
 
 {% endblock %}
