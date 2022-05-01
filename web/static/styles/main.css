@@ -29,6 +29,7 @@ body {
 }
 
 .input-group {
+    /* display: block; */
     width: 80%;
 }
 

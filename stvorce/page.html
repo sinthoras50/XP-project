@@ -22,8 +22,12 @@
   </div>
 
   <canvas id="canvas" width="200" height="200" style="border:1px solid" hidden></canvas>
+  <input name="Key name" type="text" maxlength="256" id="keyName" hidden/>
 
-  <button id="undo" onclick="undo()" hidden>Undo</button>
+  <div id="button-wrap">
+    <button id="add" onclick="add()" hidden>Add</button>
+    <button id="undo" onclick="undo()" hidden>Undo</button>
+  </div>
 
   <script type="text/javascript" src="load_img.js"></script>
 </body>

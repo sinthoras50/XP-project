@@ -4,6 +4,9 @@
 
 {% load static %}
 
+
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'styles/main.css' %}">
+
 <div class="outer">
   <div class="container-header">
 
@@ -14,8 +17,8 @@
 
 <div class="outer">
   <div class="container-body">
-
     <div class="input-group">
+      <input type="file" id="fileJson" name="file" class="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
       <input type="file" id="fileInvoice" name="file" class="form-control" aria-describedby="inputGroupFileAddon04"
         aria-label="Upload" required>
       <input type="file" id="fileTemplate" name="file" class="form-control" aria-describedby="inputGroupFileAddon04"

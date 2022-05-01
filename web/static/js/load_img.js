@@ -40,6 +40,7 @@ document.querySelector("#image_input").addEventListener("change", function () {
     document.getElementById("undo").hidden = false;
     document.getElementById("add").hidden = false;
     document.getElementById("keyName").hidden = false;
+    document.getElementById("download").hidden = false;
 
     canvas = document.getElementById("canvas");
 
@@ -184,4 +185,16 @@ function undo() {
 
   reDraw();
 }
+
+function download(content, fileName, contentType) {
+  const a = document.createElement("a");
+  const file = new Blob([content], { type: contentType });
+  a.href = URL.createObjectURL(file);
+  a.download = fileName;
+  a.click();
+ }
+ 
+ function onDownload(){
+  download(JSON.stringify(boundingBoxes), "boundingBoxes.json", "text/plain");
+ }
 
