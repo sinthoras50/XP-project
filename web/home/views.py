@@ -23,13 +23,29 @@ def upload(request):
         # print(request.FILES['fileInvoice'].file.getvalue().decode("utf-8"))
         # print(request.FILES['fileTemplate'].file.getvalue().decode("utf-8"))
 
-        template = request.FILES['fileTemplate'].read()
+        template_json = None
+        template = np_template = None
+
+        if 'fileJson' in request.FILES:
+            template_json = json.loads(request.FILES['fileJson'].read())
+
+        if 'fileTemplate' in request.FILES:
+            template = request.FILES['fileTemplate'].read()
+            np_template = np.fromstring(template, np.uint8)
+
         invoice = request.FILES['fileInvoice'].read()
-        np_template = np.fromstring(template, np.uint8)
         np_invoice = np.fromstring(invoice, np.uint8)
 
-        aligned, preview = image_alignment.align_document(np_invoice, np_template)
-        result, result_preview, data = ocr_scanner.extract_data(aligned)
+        
+        if template == None:
+            aligned = cv2.imdecode(np_invoice, cv2.IMREAD_UNCHANGED)
+        else:
+            aligned, preview = image_alignment.align_document(np_invoice, np_template)
+
+        if template_json == None:
+            result, result_preview, data = ocr_scanner.extract_data(aligned)
+        else:
+            result, result_preview, data = ocr_scanner.extract_data(aligned, template_json)
 
         retval, frame_buffer = cv2.imencode('.png', result_preview)
         frame_b64 = base64.b64encode(frame_buffer)

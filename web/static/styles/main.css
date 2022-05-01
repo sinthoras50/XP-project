@@ -1,5 +1,5 @@
 body {
-    background-color: aqua;
+    background-color: rgb(166, 223, 223);
 }
 
 .outer {
@@ -8,32 +8,85 @@ body {
     align-items: center;
 }
 
-.container-header,
-.container-body {
+.container-header {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    background-color: chartreuse;
+    box-shadow: 10px 10px;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
+    height: 100px;
+    width: 35%;
+}
+
+.container-body {
+    display: block;
     justify-content: center;
     align-items: center;
     margin-top: 30px;
     background-color: chartreuse;
     box-shadow: 10px 10px;
-    border-radius: 20px;
+    border-radius: 3px;
     border-style: solid;
     border-width: 3px;
     border-color: black;
-    height: 100px;
-    width: 60%;
+    /* height: 100px; */
+    width: 40%;
 }
 
-.container-header {
-    width: 35%;
-}
 
 .input-group {
-    /* display: block; */
-    width: 80%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-right: 60px;
+
+    /* width: 80%; */
 }
 
 .container-result-image {
     margin-top: 30px;
+}
+
+#buttons {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn {
+    font-size: large;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+fieldset {
+    display: inline-block;
+    width: wrap-content;
+    border-radius: 5px;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;
+    border-width: 2px;
+    border-style: groove;
+    border-color: threedface;
+    border-image: initial;
+}
+
+#container-alignment {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 

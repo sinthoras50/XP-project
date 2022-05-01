@@ -17,15 +17,42 @@
 
 <div class="outer">
   <div class="container-body">
-    <div class="input-group">
-      <input type="file" id="fileJson" name="file" class="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-      <input type="file" id="fileInvoice" name="file" class="form-control" aria-describedby="inputGroupFileAddon04"
-        aria-label="Upload" required>
-      <input type="file" id="fileTemplate" name="file" class="form-control" aria-describedby="inputGroupFileAddon04"
-      aria-label="Upload" required>
 
-      <button class="btn btn-outline-secondary" onclick="upload()" id="inputGroupFileAddon04">upload</button>
+    <div class="input-group">
+      <div class="input-group-prepend w-25">
+        <span class="input-group-text">Invoice (required) </span>
+      </div>
+      <input type="file" id="fileInvoice" name="file" class="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" dir="rtl" required>
     </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend w-25">
+        <span class="input-group-text">Template (optional) </span>
+      </div>
+      <input type="file" id="fileTemplate" name="file" class="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" dir="rtl">
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend w-25">
+        <span class="input-group-text">Locations (optional) </span>
+      </div>
+      <input type="file" id="fileJson" name="file" class="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" dir="rtl">
+    </div>
+
+    <!-- <div id="container-alignment">
+      <fieldset>
+        <div id="alignment">
+          <input type="checkbox" id="alignCheckbox" name="Align document" checked>
+          <label for="alignCheckbox">Align document</label>
+        </div>
+      </fieldset>
+    </div> -->
+
+    <div id="buttons">
+      <button class="btn btn-outline-secondary" onclick="upload()" id="inputGroupFileAddon04">Upload</button>
+      <button class="btn btn-outline-secondary" onclick="onDownload()" id="inputGroupFileAddon04">Download</button>
+    </div>
+
 
   </div>
 </div>
