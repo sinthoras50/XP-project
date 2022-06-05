@@ -39,27 +39,35 @@
       <input type="file" id="fileJson" name="file" class="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" dir="rtl">
     </div>
 
-    <!-- <div id="container-alignment">
-      <fieldset>
-        <div id="alignment">
-          <input type="checkbox" id="alignCheckbox" name="Align document" checked>
-          <label for="alignCheckbox">Align document</label>
-        </div>
-      </fieldset>
-    </div> -->
-
     <div id="buttons">
-      <button class="btn btn-outline-secondary" onclick="upload()" id="inputGroupFileAddon04">Upload</button>
-      <button class="btn btn-outline-secondary" onclick="onDownload()" id="inputGroupFileAddon04">Download</button>
+      <button class="btn btn-outline-secondary" onclick="MainModule.upload()" id="inputGroupFileAddon04">Upload</button>
+      <button class="btn btn-outline-secondary" onclick="MainModule.onDownload()" id="inputGroupFileAddon04">Download</button>
     </div>
 
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="saveLocationsSwitch" disabled>
+      <label class="form-check-label" for="saveLocationsSwitch">Save locations</label>
+    </div>
 
+    <div class="about">
+      <button type="button" class="collapsible">How to use</button>
+      <!-- <h2>How to use</h2> -->
+      <div class="about-content">
+        <ol>
+          <li>Select an invoice to be scanned.</li>
+          <li>(Optional) Select a template for the invoice. The application will then attempt to align the invoice with the template, increasing precision of the OCR.</li>
+          <li>(Optional) Select a json file containing the locations of the items that are to be extracted from the invoice. 
+            Save locations can be toggled to save them as a preset for any further invoices. Json file can be created in the <a href="/editor">Template editor</a>.
+          </li>
+        </ol>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="outer">
   <div class="container-result-image">
-    <img src="" id="result-image" width="400"></img>
+    <img src="" id="result-image" width="400" hidden></img>
   </div>
 </div>
 
