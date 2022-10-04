@@ -4,8 +4,6 @@ from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from matplotlib.font_manager import json_load
 import numpy as np
-# from .ocr.image_alignment import align_document
-# from .ocr.ocr_scanner import extract_data
 from .ocr import *
 import base64
 import cv2
@@ -19,10 +17,6 @@ def home(request):
 def upload(request):
 
     if request.method == 'POST':
-
-        # print(request.FILES['fileInvoice'].file.getvalue().decode("utf-8"))
-        # print(request.FILES['fileTemplate'].file.getvalue().decode("utf-8"))
-
         template_json = None
         template = np_template = None
 
@@ -33,6 +27,12 @@ def upload(request):
             template = request.FILES['fileTemplate'].read()
             np_template = np.fromstring(template, np.uint8)
 
+        save_locations = request.POST['saveLocations']
+        if save_locations == 'true':
+            f = open('boundingBoxes.json', 'w')
+            json.dump(template_json, f)
+            f.close()
+
         invoice = request.FILES['fileInvoice'].read()
         np_invoice = np.fromstring(invoice, np.uint8)
 
@@ -42,10 +42,7 @@ def upload(request):
         else:
             aligned, preview = image_alignment.align_document(np_invoice, np_template)
 
-        if template_json == None:
-            result, result_preview, data = ocr_scanner.extract_data(aligned)
-        else:
-            result, result_preview, data = ocr_scanner.extract_data(aligned, template_json)
+        result, result_preview, data = ocr_scanner.extract_data(aligned, template_json)
 
         retval, frame_buffer = cv2.imencode('.png', result_preview)
         frame_b64 = base64.b64encode(frame_buffer)
@@ -55,5 +52,4 @@ def upload(request):
             'data': data
         }
 
-        # return render(request, 'home/home.html', {'img': frame_b64})
         return HttpResponse(json.dumps(ret))

@@ -9,10 +9,51 @@ html {
 #body-wrap {
     height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
     gap: 5px;
+    flex-direction: row;
+}
+
+#center-wrap {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+}
+
+#aside-left {
+    display: flex;
+    justify-content: left;
+    width: 25%;
+}
+
+#aside-right {
+    display: flex;
+    justify-items: left;
+    align-content: space-around;
+    flex-wrap: nowrap;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 25%;
+    margin-right: 50px;
+}
+
+#aside-background-container {
+    display: flex;
+    /* background: linear-gradient(90deg, rgb(11, 72, 72) 0%, rgb(47, 49, 46) 15%, rgb(47, 49, 46) 85%, rgb(11, 72, 72) 100%); */
+    background-color: rgb(47, 49, 46);
+    flex-direction: column;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#button-wrap {
+    display:flex;
+    width: 100%;
+    margin-top: 3%;
+    flex-direction: row;
+    justify-content: center;
+
 }
 
 #image_input {
@@ -25,12 +66,17 @@ html {
     align-items: center;
 }
 
+.key-input-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .upload-wrap {
     display: flex;
     justify-content: center;
+    background-color: rgb(11, 72, 72);
     align-items: center;
     flex-direction: column;
-    border: 1px solid #ccc;
     padding: 6px 12px;
     cursor: pointer;
 }
@@ -39,7 +85,65 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
 }
 
+navbar {
+    background-color: rgb(47, 49, 46);
+    display: flex;
+    justify-content: center;
+}
+
+li {
+    display: inline;
+}
+
+li a {
+    color:rgb(187, 195, 202);
+    font-size: larger;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+li a:hover {
+    color:rgb(255, 255, 255);
+}
+
+ul {
+    margin-top: 1%;
+    padding-left: 0px;
+}
+
+body {
+    background-color: rgb(11, 72, 72);
+    color: rgb(187, 195, 202);
+}
+
+canvas {
+    border: 3px solid rgb(47, 49, 46);
+    outline: none;
+}
+
+#about h2 {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#about ul {
+    margin-left: 2em;
+    margin-right: 1em;
+    list-style-type: square;
+}
+
+#about li {
+    display: list-item;
+}
+
+#logo {
+    position:absolute;
+    top: 1px;
+    left: 1px;
+    width: 60px;
+    height: 60px;
+}
 

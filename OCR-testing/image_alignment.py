@@ -4,6 +4,8 @@ import cv2
 
 def align_images(image, template, maxFeatures=500, keepPercent=0.2, debug=False):
 	# convert both the input image and template to grayscale
+	image = imutils.resize(image, width=700)
+	template = imutils.resize(template, width=700)
 	imageGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 	templateGray = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
 
@@ -54,5 +56,5 @@ def align_images(image, template, maxFeatures=500, keepPercent=0.2, debug=False)
 	(h, w) = template.shape[:2]
 	aligned = cv2.warpPerspective(image, H, (w, h))
     
-	# return the aligned image
+	# return the aligned image 
 	return aligned
